@@ -13,7 +13,7 @@ Software Development (COMP4-02555), Assignment 2 - Group Coursework.
 |Designer|Maite Matthews|
 |Lead Coder|Oliver Peploe|
 |Tester|Archie Gardner|
-|Manual Tester||Vlad Diaconescu|
+|Manual Tester|Vlad Diaconescu|
 
 
 
