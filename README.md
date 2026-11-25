@@ -12,7 +12,7 @@ Software Development (COMP4-02555), Assignment 2 - Group Coursework.
 |Researcher|Glenn Chitepo|
 |Designer|Maite Matthews|
 |Lead Coder|Oliver Peploe|
-|Tester||
+|Tester|Archie Gardner|
 |Manual Tester||
 
 
