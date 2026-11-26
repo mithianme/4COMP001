@@ -1,3 +1,5 @@
+from datetime import date
+
 import streamlit as st
 
 import budget
@@ -47,7 +49,24 @@ def show_this_week(username):
 
 
 def show_add_spending(username):
-    st.write("Add spending page: coming soon.")
+    """The form for adding something the student spent money on."""
+    st.subheader("Add spending")
+    with st.form("add_form", clear_on_submit=True):
+        amount_text = st.text_input("Amount (£)", placeholder="For example 4.50")
+        category = st.selectbox("Category", budget.CATEGORIES, index=None, placeholder="Choose a category")
+        spent_on = st.date_input("Date", value=date.today(), format="DD/MM/YYYY")
+        note = st.text_input("Note (optional)", max_chars=50, placeholder="For example: Meal deal")
+        pressed = st.form_submit_button("Add spending", type="primary")
+
+    if pressed:
+        problems = budget.check_spending(amount_text, category, spent_on, date.today())
+        if len(problems) > 0:
+            for problem in problems:
+                st.error(problem)
+        else:
+            amount = budget.read_money(amount_text)
+            storage.add_spending(username, amount, category, spent_on, note)
+            st.success(f"Added {budget.money(amount)} for {category}.")
 
 
 def show_my_spending(username):
@@ -66,6 +85,9 @@ if username is None:
     show_log_in()
 else:
     page = st.sidebar.radio("Go to", ["This week", "Add spending", "My spending", "Weekly budget"])
+    if st.sidebar.button("Log out"):
+        st.session_state["username"] = None
+        st.rerun()
     if page == "This week":
         show_this_week(username)
     elif page == "Add spending":

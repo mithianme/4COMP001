@@ -1,23 +1,51 @@
 import hashlib
+import math
 
 CATEGORIES = ["Food", "Transport", "Going out", "Shopping", "Bills", "Course costs", "Other"]
 
+AMOUNT_MAX = 1000  # the biggest amount of spending we accept, in pounds
+
 
 def money(amount):
-    pass
+    """Show an amount the way people write money: 4.5 becomes '£4.50'."""
+    return f"£{amount:.2f}"
 
 
 def read_money(text):
-    pass
+    """Turn what the user typed into a number, for example '£4.50' becomes 4.5.
+
+    Gives back None if what they typed is not a number.
+    """
+    text = text.strip().replace("£", "")
+    try:
+        amount = round(float(text), 2)
+    except ValueError:
+        return None
+    if not math.isfinite(amount):  
+        return None
+    return amount
 
 
 def check_amount(text, biggest):
-    pass
+    """Check an amount typed by the user. Gives back a list of problems (an empty list means it is fine)."""
+    amount = read_money(text)
+    if amount is None:
+        return ["Please type the amount as a number, for example 4.50."]
+    if amount <= 0:
+        return ["The amount must be more than £0."]
+    if amount > biggest:
+        return [f"The amount must be {money(biggest)} or less."]
+    return []
 
 
 def check_spending(amount_text, category, spent_on, today):
-    pass
-
+    """Check everything on the Add spending form. Gives back a list of problems."""
+    problems = check_amount(amount_text, AMOUNT_MAX)
+    if category not in CATEGORIES:
+        problems.append("Please choose a category.")
+    if spent_on > today:
+        problems.append("The date cannot be in the future.")
+    return problems
 
 def clean_username(username):
     """This tidies the username, removes spaces at the ends and use small letters."""
