@@ -54,3 +54,41 @@ All checks were tested in the browser by running the app on my laptop (`python -
 | 6 | Press Log out in the menu on the left | Back to the Log in page | Pass |
 
 Ruff (`python -m ruff check`): all checks passed.
+
+## Cards 14, 15 and 16: This week's sums, the This week page and the Weekly budget page (27th November 2026)
+
+These checks were run on 27th November with Streamlit's test tool
+
+| # | What I checked | What should happen | Result |
+|---|---|---|---|
+| 1 | Ruff after card 14 | No problems | Ruff said the imports in `budget.py` weren't in the right order (I001). Fixed in commit 854a88a, then Ruff passed |
+| 2 | Ruff after card 15, part 1 | No problems | Ruff said `status` was worked out but never used (F841). That showed the coloured message was missing from the This week page. Added the message and the bar chart in commit 9e0d48f, then Ruff passed |
+| 3 | This week with £12.50 spent this Monday and £99 spent last Sunday | Only this week's spending counts | Pass: "Spent this week" shows £12.50 |
+| 4 | This week with no budget set | Blue message | Pass: "You have not set a weekly budget yet. Choose Weekly budget on the left." |
+| 5 | This week with £12.50 spent out of £60 | Green message, and £47.50 left | Pass: "You are within your budget. Nice one!" |
+| 6 | This week with £16.50 spent out of £20 (82%) | Orange message | Pass: "You have used 80% or more of your budget. Go carefully until Monday." |
+| 7 | This week with £26.50 spent out of £20 | Red message saying how much over, and £0.00 left (never below zero) | Pass: "You are £6.50 over your budget this week." and "Left to spend" shows £0.00 |
+| 8 | This week after adding £4.50 for Food | The bar chart shows under "Where your money went this week" | Pass |
+| 9 | Weekly budget: `0` | Red message | Pass: "The amount must be more than £0." |
+| 10 | Weekly budget: `abc` | Red message | Pass: "Please type the amount as a number, for example 4.50." |
+| 11 | Weekly budget: `2500` (over the £2000 limit) | Red message | Pass: "The amount must be £2000.00 or less." |
+| 12 | Weekly budget: `60` | Saved, and the page shows the new budget | Pass: "Saved." and "Your weekly budget is £60.00." |
+
+Screenshots: `screenshots/card-15-this-week-check.png` (checks 6 and 8) and `screenshots/card-16-budget-check.png` (check 12)
+
+Ruff (`python -m ruff check`): all checks passed.
+
+## Card 19: Putting the app online (27th November 2026)
+
+The app is on Streamlit Community Cloud: https://student-budget-tracker2026.streamlit.app/
+
+Checked in the browser on the live link on 27th November
+
+| # | What I checked | What should happen | Result |
+|---|---|---|---|
+| 1 | Open the live link | The Log in page loads, with Maite's colours | Pass |
+| 2 | Create an account on the live app | Logged in straight away, with the blue "not set" message on This week | Pass |
+
+Screenshot: `screenshots/card-19-live-check.png` (check 2)
+
+The live app saves its data in a file on Streamlit's server, which is wiped when the app restarts or is updated. We'll write about this as a limitation in the report.

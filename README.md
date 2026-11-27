@@ -4,7 +4,7 @@ A website that helps students keep track of their weekly spending, so that their
 
 Software Development (COMP4-02555), Assignment 2 - Group Coursework, Canterbury Christ Church University.
 
-**Live app:** https://student-budget-tracker2026.streamlit.app/
+**Live URL:** https://student-budget-tracker2026.streamlit.app/
 
 ## Live Application
 
