@@ -1,9 +1,12 @@
 import hashlib
 import math
 
+from datetime import timedelta
+
 CATEGORIES = ["Food", "Transport", "Going out", "Shopping", "Bills", "Course costs", "Other"]
 
 AMOUNT_MAX = 1000  # the biggest amount of spending we accept, in pounds
+WARNING_LEVEL = 0.8  # warn the student when they have used 80% of their budget
 
 
 def money(amount):
@@ -73,20 +76,43 @@ def hash_password(password):
 
 
 def week_start(today):
-    pass
+    """The Monday at the start of this week. today.weekday() is 0 on a Monday and 6 on a Sunday."""
+    return today - timedelta(days=today.weekday())
 
 
 def spending_this_week(spending, today):
-    pass
+    """Keep only the spending from this week (Monday up to today)."""
+    start = week_start(today).isoformat()
+    this_week = []
+    for entry in spending:
+        if start <= entry["date"] <= today.isoformat():
+            this_week.append(entry)
+    return this_week
 
 
 def total(spending):
-    pass
+    """Add up the amounts in a list of spending."""
+    result = 0
+    for entry in spending:
+        result = result + entry["amount"]
+    return round(result, 2)
 
 
 def totals_by_category(spending):
-    pass
+    """Add up the spending in each category, for the bar chart. Gives back a dictionary like {'Food': 12.5}."""
+    totals = {}
+    for entry in spending:
+        category = entry["category"]
+        totals[category] = round(totals.get(category, 0) + entry["amount"], 2)
+    return totals
 
 
 def budget_status(spent, weekly_budget):
-    pass
+    """Compare the spending with the budget. Gives back "not set", "over", "nearly" or "ok"."""
+    if weekly_budget == 0:
+        return "not set"
+    if spent > weekly_budget:
+        return "over"
+    if spent >= weekly_budget * WARNING_LEVEL:
+        return "nearly"
+    return "ok"
