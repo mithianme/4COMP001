@@ -39,3 +39,18 @@ All checks were tested in the browser by running the app on my laptop (`python -
 Screenshots: `screenshots/card-12-username-check.png` (check 5) and `screenshots/card-12-login-check.png` (check 7)
 
 Ruff (`python -m ruff check`): all checks passed.
+
+## Card 13: Add spending page and the amount checks (26th November 2026)
+
+All checks were tested in the browser by running the app on my laptop (`python -m streamlit run app.py`), logged in as oliver01.
+
+| # | What I checked | What should happen | Result |
+|---|---|---|---|
+| 1 | Add spending with the amount `abc` | Red message: type the amount as a number | Pass: "Please type the amount as a number, for example 4.50." |
+| 2 | Add spending with the amount `0` | Red message: the amount must be more than £0 | Pass: "The amount must be more than £0." |
+| 3 | Add spending of `5` without choosing a category | Red message: choose a category | Pass: "Please choose a category." |
+| 4 | Add spending of `5`, Food, with tomorrow's date | Red message: the date can't be in the future | Pass: "The date cannot be in the future." |
+| 5 | Add spending of `4.50`, Food, today, with the note "Meal deal" | Green message, and the form clears | Pass: "Added £4.50 for Food." |
+| 6 | Press Log out in the menu on the left | Back to the Log in page | Pass |
+
+Ruff (`python -m ruff check`): all checks passed.
