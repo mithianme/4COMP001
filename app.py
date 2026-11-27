@@ -59,6 +59,21 @@ def show_this_week(username):
     col2.metric("Spent this week", budget.money(spent))
     col3.metric("Left to spend", budget.money(max(weekly_budget - spent, 0)))
 
+    if status == "not set":
+        st.info("You have not set a weekly budget yet. Choose Weekly budget on the left.")
+    elif status == "over":
+        st.error(f"You are {budget.money(spent - weekly_budget)} over your budget this week.")
+    elif status == "nearly":
+        st.warning("You have used 80% or more of your budget. Go carefully until Monday.")
+    else:
+        st.success("You are within your budget.")
+
+    if len(this_week) > 0:
+        st.subheader("Where your money went this week")
+        totals = budget.totals_by_category(this_week)
+        chart_data = {"Category": list(totals.keys()), "Spent (£)": list(totals.values())}
+        st.bar_chart(chart_data, x="Category", y="Spent (£)")
+
 
 def show_add_spending(username):
     """The form for adding something the student spent money on."""
