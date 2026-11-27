@@ -1,0 +1,13 @@
+# Maite's "Underwater Scene" colours
+# (https://www.color-hex.com/color-palette/74932).
+
+
+[theme]
+base = "light"
+
+primaryColor = "#005582"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#DAF8E3"
+textColor = "#005582"
+chartCategoricalColors = ["#0086AD", "#005582", "#00C2C7", "#97EBDB"]
+
