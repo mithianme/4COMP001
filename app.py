@@ -45,7 +45,19 @@ def show_log_in():
 
 
 def show_this_week(username):
-    st.write("This week page: coming soon.")
+    """This week's budget, spending and money left, with a coloured message and a bar chart."""
+    user = storage.get_user(username)
+    today = date.today()
+    this_week = budget.spending_this_week(user["spending"], today)
+    spent = budget.total(this_week)
+    weekly_budget = user["weekly_budget"]
+    status = budget.budget_status(spent, weekly_budget)
+
+    st.subheader(f"Hi {username}, here is your week")
+    col1, col2, col3 = st.columns(3)
+    col1.metric("Weekly budget", budget.money(weekly_budget))
+    col2.metric("Spent this week", budget.money(spent))
+    col3.metric("Left to spend", budget.money(max(weekly_budget - spent, 0)))
 
 
 def show_add_spending(username):
