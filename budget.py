@@ -7,6 +7,7 @@ CATEGORIES = ["Food", "Transport", "Going out", "Shopping", "Bills", "Course cos
 
 AMOUNT_MAX = 1000  # the biggest amount of spending we accept, in pounds
 WARNING_LEVEL = 0.8  # warn the student when they have used 80% of their budget
+BUDGET_MAX = 2000  # the biggest weekly budget we accept, in pounds
 
 
 def money(amount):

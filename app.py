@@ -86,7 +86,21 @@ def show_my_spending(username):
 
 
 def show_weekly_budget(username):
-    st.write("Weekly budget page: coming soon.")
+    """The form for setting how much the student wants to spend each week."""
+    st.subheader("Weekly budget")
+    st.write("How much do you want to spend each week on things like food, travel and going out?")
+    with st.form("budget_form"):
+        budget_text = st.text_input("Weekly budget (£)", placeholder="For example 60")
+        pressed = st.form_submit_button("Save budget", type="primary")
+    if pressed:
+        problems = budget.check_amount(budget_text, budget.BUDGET_MAX)
+        if len(problems) > 0:
+            st.error(problems[0])
+        else:
+            storage.set_budget(username, budget.read_money(budget_text))
+            st.success("Saved.")
+    user = storage.get_user(username)
+    st.write(f"Your weekly budget is **{budget.money(user['weekly_budget'])}**.")
 
 
 st.title("Student Budget Tracker")
