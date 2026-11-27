@@ -1,6 +1,5 @@
 import hashlib
 import math
-
 from datetime import timedelta
 
 CATEGORIES = ["Food", "Transport", "Going out", "Shopping", "Bills", "Course costs", "Other"]
